@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-using RepoWebAPI.Objects;
-
-namespace RepoWebAPI.Interfaces
+namespace RepoWebAPI.Objects
 {
     public abstract class CoinMarketCapAPIResponse
     {

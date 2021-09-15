@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Services;
 using Microsoft.AspNetCore.Mvc;
+using RepoWebAPI.Interfaces;
+using RepoWebAPI.Objects;
 
 namespace RepoWebAPI.Controllers
 {
@@ -8,17 +9,17 @@ namespace RepoWebAPI.Controllers
     [Route("[controller]")]
     public class CoinMarketCapController : ControllerBase
     {
-        private readonly ICoinMarketCapService _coinMarketCapService;
+        private readonly ICoinMarketCapQuoteRepository _coinMarketCapQuoteRepositoryQuote;
 
-        public CoinMarketCapController(ICoinMarketCapService coinMarketCapService)
+        public CoinMarketCapController(ICoinMarketCapQuoteRepository coinMarketCapQuoteRepositoryQuote)
         {
-            _coinMarketCapService = coinMarketCapService;
+            _coinMarketCapQuoteRepositoryQuote = coinMarketCapQuoteRepositoryQuote;
         }
 
         [HttpGet]
-        public async Task<string> Get(string symbol)
+        public async Task<CoinMarketCapAPIResponseQuote> Get(string symbol, string convert)
         {
-            return await _coinMarketCapService.Get(symbol);
+            return await _coinMarketCapQuoteRepositoryQuote.FetchFromApi(symbol, convert);
         }
     }
 }

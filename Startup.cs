@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using RepoWebAPI.Interfaces;
+using RepoWebAPI.Repository;
 
 namespace RepoWebAPI
 {
@@ -27,6 +29,7 @@ namespace RepoWebAPI
                 c.BaseAddress = new Uri("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest");
                 c.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", $"{Configuration["APIKEY"]}");
             });
+            services.AddScoped<ICoinMarketCapQuoteRepository, CoinMarketCapQuoteRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "RepoWebAPI", Version = "v1"});

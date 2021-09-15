@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace RepoWebAPI.Entities
 {
-    public class Datum
+    public class CoinMarketCapQuote
     {
+        [Key]
         [JsonProperty("id")]
         public long Id { get; set; }
 
