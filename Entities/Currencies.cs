@@ -10,4 +10,7 @@ namespace RepoWebAPI.Entities
     
     public class Eur : Currency
     { }
+    
+    public class Zar : Currency
+    { }
 }

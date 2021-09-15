@@ -12,5 +12,8 @@ namespace RepoWebAPI.Entities
 
         [JsonProperty("EUR")]
         public Eur Eur { get; set; }
+
+        [JsonProperty("ZAR")]
+        public Zar Zar { get; set; }
     }
 }

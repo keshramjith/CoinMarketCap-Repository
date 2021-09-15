@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -35,6 +34,7 @@ namespace RepoWebAPI.Repository
             var jsonResult = await _coinMarketCapService.Get(symbol, convert);
             var res = JsonConvert.DeserializeObject<CoinMarketCapAPIResponseQuote>(jsonResult, _settings);
             return res;
+            //var quote = res.
         }
 
         

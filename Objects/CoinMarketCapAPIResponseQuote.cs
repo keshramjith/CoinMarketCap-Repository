@@ -13,7 +13,7 @@ namespace RepoWebAPI.Objects
     public class CoinMarketCapAPIResponseQuote : CoinMarketCapAPIResponse
     {
         [JsonProperty("data")]
-        public Dictionary<string, Datum> Data { get; set; }
+        public Dictionary<string, CoinMarketCapQuote> Data { get; set; }
     }
 
     public class Welcome
