@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RepoWebAPI.Interfaces;
+using RepoWebAPI.Objects;
 using RepoWebAPI.Repository;
 
 namespace RepoWebAPI
@@ -29,6 +30,7 @@ namespace RepoWebAPI
                 c.BaseAddress = new Uri("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest");
                 c.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", $"{Configuration["APIKEY"]}");
             });
+            services.AddDbContext<CoinMarketCapQuoteDbContext>();
             services.AddScoped<ICoinMarketCapQuoteRepository, CoinMarketCapQuoteRepository>();
             services.AddSwaggerGen(c =>
             {
@@ -37,7 +39,7 @@ namespace RepoWebAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CoinMarketCapQuoteDbContext db)
         {
             if (env.IsDevelopment())
             {
@@ -46,6 +48,8 @@ namespace RepoWebAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RepoWebAPI v1"));
             }
 
+            db.Database.EnsureCreated();
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

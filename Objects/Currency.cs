@@ -1,11 +1,14 @@
 ﻿using System;
-
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
 namespace RepoWebAPI.Objects
 {
     public abstract class Currency
     {
+        [Key]
+        public long Id { get; set; }
+        
         [JsonProperty("price")]
         public double Price { get; set; }
 

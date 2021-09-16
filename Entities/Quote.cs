@@ -4,6 +4,8 @@ namespace RepoWebAPI.Entities
 {
     public class Quote
     {
+        public long Id { get; set; }
+        
         [JsonProperty("USD")]
         public Usd Usd { get; set; }
 
