@@ -1,11 +1,5 @@
-﻿using RepoWebAPI.Interfaces;
-
-using System.Collections.Generic;
-using System.Globalization;
-
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
 using RepoWebAPI.Entities;
 
 namespace RepoWebAPI.Objects
@@ -14,28 +8,5 @@ namespace RepoWebAPI.Objects
     {
         [JsonProperty("data")]
         public Dictionary<string, CoinMarketCapQuote> Data { get; set; }
-    }
-
-    public class Welcome
-    {
-        public static Welcome FromJson(string json) => JsonConvert.DeserializeObject<Welcome>(json, Converter.Settings);
-    }
-
-    public static class Serialize
-    {
-        public static string ToJson(this Welcome self) => JsonConvert.SerializeObject(self, Converter.Settings);
-    }
-
-    internal static class Converter
-    {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters =
-            {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
-        };
     }
 }
