@@ -9,7 +9,7 @@ namespace RepoWebAPI.Entities
     public class CoinMarketCapQuote
     {
         [Key]
-        [JsonProperty("id")]
+        [JsonIgnore]
         public long Id { get; set; }
 
         [JsonProperty("name")]

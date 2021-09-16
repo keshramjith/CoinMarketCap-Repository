@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using RepoWebAPI.Entities;
@@ -38,9 +39,14 @@ namespace RepoWebAPI.Repository
             {
                 foreach (var quote in res.Data)
                 {
-                    _coinMarketCapQuoteDbContext.Add(quote);
+                    _coinMarketCapQuoteDbContext.Add(quote.Value);
                 }
 
+                //_coinMarketCapQuoteDbContext.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [dbo].[Authors] ON");
+                _coinMarketCapQuoteDbContext.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [dbo].[CoinMarketCapQuote] ON");
+                _coinMarketCapQuoteDbContext.SaveChanges();
+                _coinMarketCapQuoteDbContext.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [dbo].[CoinMarketCapQuote] OFF");
+                //_coinMarketCapQuoteDbContext.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [dbo].[Authors] OFF");
                 return "Data added to database";
             }
             else

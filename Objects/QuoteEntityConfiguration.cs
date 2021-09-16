@@ -8,7 +8,7 @@ namespace RepoWebAPI.Objects
     {
         public void Configure(EntityTypeBuilder<CoinMarketCapQuote> builder)
         {
-            builder.Property(_ => _.Id).UseIdentityColumn();
+            //builder.Property(_ => _.Id).UseIdentityColumn();
             builder.Ignore(_ => _.Tags);
             builder.Ignore(_ => _.Platform);
         }
