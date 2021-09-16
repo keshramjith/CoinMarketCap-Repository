@@ -16,7 +16,10 @@ namespace RepoWebAPI.Controllers
         }
 
         /*
-         * 
+         * Uses values from query string and is passed into the repository
+         * It expects back a string message, of whether data as been added to the database
+         * Or an error message if something went wrong
+         * Displays this reponse
          */
         public async Task<string> Get(string symbol, string convert)
         {

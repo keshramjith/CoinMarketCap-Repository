@@ -10,7 +10,7 @@ using RepoWebAPI.Objects;
 namespace RepoWebAPI.Migrations
 {
     [DbContext(typeof(CoinMarketCapQuoteDbContext))]
-    [Migration("20210916055910_InitialCreate")]
+    [Migration("20210916075711_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,8 +26,6 @@ namespace RepoWebAPI.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("CirculatingSupply")
