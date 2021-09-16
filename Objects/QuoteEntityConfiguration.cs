@@ -6,9 +6,11 @@ namespace RepoWebAPI.Objects
 {
     public class QuoteEntityConfiguration : IEntityTypeConfiguration<CoinMarketCapQuote>
     {
+        /*
+         * configures model builder to ignore Tags and Platform properties
+         */
         public void Configure(EntityTypeBuilder<CoinMarketCapQuote> builder)
         {
-            //builder.Property(_ => _.Id).UseIdentityColumn();
             builder.Ignore(_ => _.Tags);
             builder.Ignore(_ => _.Platform);
         }

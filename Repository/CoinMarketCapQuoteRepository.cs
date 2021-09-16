@@ -31,6 +31,15 @@ namespace RepoWebAPI.Repository
                 },
             };
         }
+
+        /*
+         * Receives symbol and convert values from controller
+         * Passes symbol and convert to service
+         * retrieves json from service, and convert it to an object of type CoinMarketCapAPIResponseQuote
+         * This will be used to check if there were any errors, if so, return the error message
+         * otherwise add the CoinMarketCapQuotes in res.Value to the DBContext and save changes
+         * Return a success message upon saving changes to database
+         */
         public async Task<string> FetchFromApi(string symbol, string convert)
         {
             var jsonResult = await _coinMarketCapService.Get(symbol, convert);
@@ -41,12 +50,9 @@ namespace RepoWebAPI.Repository
                 {
                     _coinMarketCapQuoteDbContext.Add(quote.Value);
                 }
-
-                //_coinMarketCapQuoteDbContext.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [dbo].[Authors] ON");
-                _coinMarketCapQuoteDbContext.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [dbo].[CoinMarketCapQuote] ON");
+                
                 _coinMarketCapQuoteDbContext.SaveChanges();
-                _coinMarketCapQuoteDbContext.Database.ExecuteSqlRaw(@"SET IDENTITY_INSERT [dbo].[CoinMarketCapQuote] OFF");
-                //_coinMarketCapQuoteDbContext.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [dbo].[Authors] OFF");
+
                 return "Data added to database";
             }
             else
@@ -55,15 +61,20 @@ namespace RepoWebAPI.Repository
             }
         }
 
-        
-        public Task<IQueryable<CoinMarketCapQuote>> GetAll()
+        /*
+         * Fetches all quote records from database.
+         */
+        public IQueryable<CoinMarketCapQuote> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _coinMarketCapQuoteDbContext.Set<CoinMarketCapQuote>();
         }
 
-        public Task<CoinMarketCapQuote> Get(long id)
+        /*
+         * Fetches all quotes for a certain symbol from the database.
+         */
+        public IQueryable<CoinMarketCapQuote> Get(string symbol)
         {
-            throw new System.NotImplementedException();
+            return _coinMarketCapQuoteDbContext.Set<CoinMarketCapQuote>().Where(_ => _.Symbol == symbol);
         }
     }
 }

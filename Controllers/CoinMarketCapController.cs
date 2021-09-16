@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RepoWebAPI.Interfaces;
-using RepoWebAPI.Objects;
 
 namespace RepoWebAPI.Controllers
 {
@@ -16,7 +15,9 @@ namespace RepoWebAPI.Controllers
             _coinMarketCapQuoteRepositoryQuote = coinMarketCapQuoteRepositoryQuote;
         }
 
-        [HttpGet]
+        /*
+         * 
+         */
         public async Task<string> Get(string symbol, string convert)
         {
             return await _coinMarketCapQuoteRepositoryQuote.FetchFromApi(symbol, convert);
