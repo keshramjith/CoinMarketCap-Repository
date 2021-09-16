@@ -17,7 +17,7 @@ namespace RepoWebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<CoinMarketCapAPIResponseQuote> Get(string symbol, string convert)
+        public async Task<string> Get(string symbol, string convert)
         {
             return await _coinMarketCapQuoteRepositoryQuote.FetchFromApi(symbol, convert);
         }

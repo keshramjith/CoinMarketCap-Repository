@@ -13,7 +13,7 @@ namespace RepoWebAPI.Objects
         public long ErrorCode { get; set; }
 
         [JsonProperty("error_message")]
-        public object ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         [JsonProperty("elapsed")]
         public long Elapsed { get; set; }

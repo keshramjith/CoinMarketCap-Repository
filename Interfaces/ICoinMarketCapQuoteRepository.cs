@@ -7,7 +7,7 @@ namespace RepoWebAPI.Interfaces
 {
     public interface ICoinMarketCapQuoteRepository
     {
-        Task<CoinMarketCapAPIResponseQuote> FetchFromApi(string symbol, string convert);
+        Task<string>  FetchFromApi(string symbol, string convert);
         Task<IQueryable<CoinMarketCapQuote>> GetAll();
         Task<CoinMarketCapQuote> Get(long id);
     }

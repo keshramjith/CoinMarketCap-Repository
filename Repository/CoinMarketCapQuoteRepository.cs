@@ -13,11 +13,13 @@ namespace RepoWebAPI.Repository
     public class CoinMarketCapQuoteRepository: ICoinMarketCapQuoteRepository
     {
         private readonly ICoinMarketCapService _coinMarketCapService;
+        private readonly CoinMarketCapQuoteDbContext _coinMarketCapQuoteDbContext;
         private readonly JsonSerializerSettings _settings;
 
-        public CoinMarketCapQuoteRepository(ICoinMarketCapService coinMarketCapService)
+        public CoinMarketCapQuoteRepository(ICoinMarketCapService coinMarketCapService, CoinMarketCapQuoteDbContext coinMarketCapQuoteDbContext)
         {
             _coinMarketCapService = coinMarketCapService;
+            _coinMarketCapQuoteDbContext = coinMarketCapQuoteDbContext;
             _settings = new JsonSerializerSettings
             {
                 MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
@@ -27,14 +29,24 @@ namespace RepoWebAPI.Repository
                     new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
                 },
             };
-            // inject db context in ctor
         }
-        public async Task<CoinMarketCapAPIResponseQuote> FetchFromApi(string symbol, string convert)
+        public async Task<string> FetchFromApi(string symbol, string convert)
         {
             var jsonResult = await _coinMarketCapService.Get(symbol, convert);
             var res = JsonConvert.DeserializeObject<CoinMarketCapAPIResponseQuote>(jsonResult, _settings);
-            return res;
-            //var quote = res.
+            if (res.Status.ErrorCode == 0)
+            {
+                foreach (var quote in res.Data)
+                {
+                    _coinMarketCapQuoteDbContext.Add(quote);
+                }
+
+                return "Data added to database";
+            }
+            else
+            {
+                return res.Status.ErrorMessage;
+            }
         }
 
         
